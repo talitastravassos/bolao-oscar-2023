@@ -1,4 +1,4 @@
-import Category from "components/Category";
+import Header from "components/Header";
 import { NextPage } from "next";
 import { useState } from "react";
 
@@ -13,12 +13,13 @@ const Home: NextPage = () => {
 
   return (
     <div>
-      <Category
+      <Header />
+      {/* <Category
         options={options}
         name="Category"
         // selectedOption={selectedOption}
         onOptionSelected={handleOptionSelected}
-      />
+      /> */}
     </div>
   );
 };
