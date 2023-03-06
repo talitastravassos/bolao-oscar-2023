@@ -1,4 +1,4 @@
-import BolaoProvider from "context/BolaoContext";
+import { BolaoProvider } from "context/BolaoContext";
 import type { AppProps } from "next/app";
 import Head from "next/head";
 import GlobalStyles from "../../styles/global";

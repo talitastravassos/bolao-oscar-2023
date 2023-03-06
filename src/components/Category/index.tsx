@@ -8,7 +8,11 @@ type CategoryProps = {
   onOptionSelected: (option: string) => void;
 };
 
-const Category = ({ name, options, onOptionSelected }: CategoryProps) => {
+export const Category = ({
+  name,
+  options,
+  onOptionSelected,
+}: CategoryProps) => {
   const [selectedOption, setSelectedOption] = useState(options[0]);
 
   const handleOptionSelected = (option: string) => {
@@ -27,5 +31,3 @@ const Category = ({ name, options, onOptionSelected }: CategoryProps) => {
     </CategoryStyled>
   );
 };
-
-export default Category;

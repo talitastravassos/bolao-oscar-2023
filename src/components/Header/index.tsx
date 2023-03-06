@@ -1,6 +1,6 @@
 import { Container } from "./styles";
 
-const Header = () => {
+export const Header = () => {
   return (
     <Container>
       <img
@@ -10,5 +10,3 @@ const Header = () => {
     </Container>
   );
 };
-
-export default Header;

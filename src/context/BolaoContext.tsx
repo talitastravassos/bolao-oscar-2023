@@ -14,7 +14,7 @@ const BolaoContext = React.createContext<BolaoContextType>(
   {} as BolaoContextType
 );
 
-const BolaoProvider = ({ children }: IProps) => {
+export const BolaoProvider = ({ children }: IProps) => {
   const [categories, setCategories] = useState<Categories[]>(
     [] as Categories[]
   );
@@ -39,7 +39,5 @@ const BolaoProvider = ({ children }: IProps) => {
     <BolaoContext.Provider value={values}>{children}</BolaoContext.Provider>
   );
 };
-
-export default BolaoProvider;
 
 export const useBolaoContext = () => useContext(BolaoContext);
