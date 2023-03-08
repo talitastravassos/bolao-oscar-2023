@@ -1,12 +1,12 @@
-export interface Categories {
+export interface ICategory {
   id: string;
   title: string;
-  nominees: Nominee[];
+  nominees: INominee[];
 }
 
-export interface Nominee {
+export interface INominee {
   id: string;
-  name?: string;
+  name: string;
   producers?: null | string;
   isWinner?: boolean;
   movie?: string;

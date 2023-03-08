@@ -1,9 +1,9 @@
 import { api } from "api";
 import React, { useContext, useMemo, useState } from "react";
-import { Categories } from "types";
+import { ICategory } from "types";
 
 export type BolaoContextType = {
-  categories: Categories[];
+  categories: ICategory[];
 };
 
 interface IProps {
@@ -15,9 +15,7 @@ const BolaoContext = React.createContext<BolaoContextType>(
 );
 
 export const BolaoProvider = ({ children }: IProps) => {
-  const [categories, setCategories] = useState<Categories[]>(
-    [] as Categories[]
-  );
+  const [categories, setCategories] = useState<ICategory[]>([] as ICategory[]);
 
   const getCategories = async () => {
     const { data } = await api.get("/");

@@ -1,33 +1,36 @@
-import { useState } from "react";
-import Options from "./Options";
-import { CategoryStyled } from "./styles";
+import { Field } from "formik";
+
+import { ICategory } from "types";
+import { CategoryStyled, OptionsStyled } from "./styles";
 
 type CategoryProps = {
   name: string;
-  options: string[];
-  onOptionSelected: (option: string) => void;
+  label: string;
+  category: ICategory;
 };
 
-export const Category = ({
-  name,
-  options,
-  onOptionSelected,
-}: CategoryProps) => {
-  const [selectedOption, setSelectedOption] = useState(options[0]);
+export const Category = ({ name, category, label }: CategoryProps) => {
+  // const [selectedOption, setSelectedOption] = useState(
+  //   category?.nominees[0]?.name
+  // );
 
-  const handleOptionSelected = (option: string) => {
-    setSelectedOption(option);
-  };
+  // console.log({ name });
 
   return (
     <CategoryStyled>
-      <h3>{name}</h3>
-      <Options
-        options={options}
-        selectedOption={selectedOption}
-        onOptionSelected={handleOptionSelected}
-      />
-      <p>Selected option: {selectedOption}</p>
+      <h3>{label}</h3>
+      <OptionsStyled>
+        {category?.nominees?.map((option) => (
+          <label key={option.id}>
+            <Field
+              type="radio"
+              value={option.name || option.title}
+              name={name}
+            />
+            {option.name || option.title}
+          </label>
+        ))}
+      </OptionsStyled>
     </CategoryStyled>
   );
 };
