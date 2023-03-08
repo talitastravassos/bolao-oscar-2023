@@ -12,8 +12,8 @@ export const OptionsStyled = styled.div`
   flex-direction: column;
 
   label {
-    font-size: 1.3rem;
-    margin: 5px 0;
+    font-size: 1.4rem;
+    margin: 4px 0;
     font-weight: 400;
 
     input {

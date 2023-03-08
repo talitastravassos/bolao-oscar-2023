@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const MainStyled = styled.main`
-  display: inline;
+  padding: 2rem 0;
 
   form > div {
     margin: 5rem;
