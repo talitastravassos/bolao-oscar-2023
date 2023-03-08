@@ -1,9 +1,10 @@
 import styled from "styled-components";
 
 export const MainStyled = styled.main`
-  margin: 5rem;
+  display: inline;
 
   form > div {
+    margin: 5rem;
     display: grid;
     grid-template-columns: 2fr 2fr 2fr;
     row-gap: 3rem;
@@ -17,6 +18,7 @@ export const MainStyled = styled.main`
 
 export const ButtonStyled = styled.button`
   margin: 2rem auto;
+  display: block;
   width: 15rem;
   height: 3rem;
 

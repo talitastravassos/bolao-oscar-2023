@@ -20,7 +20,7 @@ export const Category = ({ name, category, label }: CategoryProps) => {
               value={option.name || option.title}
               name={name}
             />
-            {option.name || option.title}
+            {option.name || option.title} {option.movie && `(${option.movie})`}
           </label>
         ))}
       </OptionsStyled>
