@@ -1,5 +1,4 @@
 import { Field } from "formik";
-
 import { ICategory } from "types";
 import { CategoryStyled, OptionsStyled } from "./styles";
 
@@ -10,12 +9,6 @@ type CategoryProps = {
 };
 
 export const Category = ({ name, category, label }: CategoryProps) => {
-  // const [selectedOption, setSelectedOption] = useState(
-  //   category?.nominees[0]?.name
-  // );
-
-  // console.log({ name });
-
   return (
     <CategoryStyled>
       <h3>{label}</h3>

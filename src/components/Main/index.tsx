@@ -1,6 +1,8 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Category } from "components/Category";
 import { Form, Formik } from "formik";
 import { ICategory } from "types";
+import { ButtonStyled, MainStyled } from "./styles";
 
 type MainProps = {
   categories: ICategory[];
@@ -9,7 +11,7 @@ type MainProps = {
 export const Main = ({ categories }: MainProps) => {
   return (
     categories && (
-      <main>
+      <MainStyled>
         <Formik
           initialValues={{
             BestPicture: "",
@@ -33,25 +35,27 @@ export const Main = ({ categories }: MainProps) => {
         >
           {({ values }) => (
             <Form>
-              {categories.map((category) => (
-                <div
-                  role="group"
-                  aria-labelledby="my-radio-group"
-                  key={category.id}
-                >
-                  <Category
-                    category={category}
-                    name={category?.title.replace(/\s/g, "")}
-                    label={category?.title}
-                  />
-                </div>
-              ))}
+              <div>
+                {categories.map((category) => (
+                  <div
+                    role="group"
+                    aria-labelledby="my-radio-group"
+                    key={category.id}
+                  >
+                    <Category
+                      category={category}
+                      name={category?.title.replace(/\s/g, "")}
+                      label={category?.title}
+                    />
+                  </div>
+                ))}
+              </div>
 
-              <button type="submit">Enviar</button>
+              <ButtonStyled type="submit">Enviar</ButtonStyled>
             </Form>
           )}
         </Formik>
-      </main>
+      </MainStyled>
     )
   );
 };
