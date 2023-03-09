@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Category } from "components/Category";
+import { useBolaoContext } from "context/BolaoContext";
 import { Form, Formik } from "formik";
 import { ICategory } from "types";
 import { ButtonStyled, MainStyled } from "./styles";
@@ -9,53 +10,43 @@ type MainProps = {
 };
 
 export const Main = ({ categories }: MainProps) => {
-  return (
-    categories && (
-      <MainStyled>
-        <Formik
-          initialValues={{
-            BestPicture: "",
-            BestDirector: "",
-            BestLeadActor: "",
-            BestLeadActress: "",
-            BestSupportingActor: "",
-            BestSupportingActress: "",
-            BestAdaptedScreenplay: "",
-            BestOriginalScreenplay: "",
-            BestCinematography: "",
-            BestFilmEditing: "",
-            BestInternationalFeatureFilm: "",
-            BestAnimatedFeatureFilm: "",
-            BestVisualEffects: "",
-            BestOriginalSong: "",
-          }}
-          onSubmit={async (values) => {
-            console.log({ values });
-          }}
-        >
-          {({ values }) => (
-            <Form>
-              <div>
-                {categories.map((category) => (
-                  <div
-                    role="group"
-                    aria-labelledby="my-radio-group"
-                    key={category.id}
-                  >
-                    <Category
-                      category={category}
-                      name={category?.title.replace(/\s/g, "")}
-                      label={category?.title}
-                    />
-                  </div>
-                ))}
-              </div>
+  const { saveBolaoLocalStorage, currentBolao, isLoading } = useBolaoContext();
 
-              <ButtonStyled type="submit">Enviar</ButtonStyled>
-            </Form>
-          )}
-        </Formik>
-      </MainStyled>
-    )
+  // console.log(currentBolao);
+
+  return !isLoading ? (
+    <MainStyled>
+      <Formik
+        initialValues={currentBolao}
+        onSubmit={async (values) => {
+          console.log({ values });
+          saveBolaoLocalStorage("dataBolaoOscar2023", values);
+        }}
+      >
+        {({ values }) => (
+          <Form>
+            <div>
+              {categories.map((category) => (
+                <div
+                  role="group"
+                  aria-labelledby="my-radio-group"
+                  key={category.id}
+                >
+                  <Category
+                    category={category}
+                    name={category?.title.replace(/\s/g, "")}
+                    label={category?.title}
+                  />
+                </div>
+              ))}
+            </div>
+
+            <ButtonStyled type="submit">Enviar</ButtonStyled>
+          </Form>
+        )}
+      </Formik>
+    </MainStyled>
+  ) : (
+    <></>
   );
 };

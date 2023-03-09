@@ -13,8 +13,9 @@ export const OptionsStyled = styled.div`
 
   label {
     font-size: 1.4rem;
-    margin: 4px 0;
+    margin: 5px 0;
     font-weight: 400;
+    display: flex;
 
     input {
       margin-right: 5px;

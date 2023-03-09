@@ -19,6 +19,7 @@ export const Category = ({ name, category, label }: CategoryProps) => {
               type="radio"
               value={option.name || option.title}
               name={name}
+              // disabled
             />
             {option.name || option.title} {option.movie && `(${option.movie})`}
           </label>
