@@ -39,4 +39,10 @@ export const ButtonStyled = styled.button`
   &:active {
     background-color: #222222;
   }
+
+  &:disabled {
+    cursor: not-allowed;
+    background-color: #191825;
+    opacity: 0.8;
+  }
 `;

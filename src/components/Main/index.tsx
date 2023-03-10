@@ -10,11 +10,12 @@ type MainProps = {
 };
 
 export const Main = ({ categories }: MainProps) => {
-  const { saveBolaoLocalStorage, currentBolao, isLoading } = useBolaoContext();
+  const { saveBolaoLocalStorage, getBolaoLocalStorage, currentBolao } =
+    useBolaoContext();
 
-  // console.log(currentBolao);
+  const disabledForm = !!getBolaoLocalStorage("dataBolaoOscar2023");
 
-  return !isLoading ? (
+  return (
     <MainStyled>
       <Formik
         initialValues={currentBolao}
@@ -36,17 +37,18 @@ export const Main = ({ categories }: MainProps) => {
                     category={category}
                     name={category?.title.replace(/\s/g, "")}
                     label={category?.title}
+                    disabled={disabledForm}
                   />
                 </div>
               ))}
             </div>
 
-            <ButtonStyled type="submit">Enviar</ButtonStyled>
+            <ButtonStyled type="submit" disabled={disabledForm}>
+              Enviar
+            </ButtonStyled>
           </Form>
         )}
       </Formik>
     </MainStyled>
-  ) : (
-    <></>
   );
 };

@@ -5,20 +5,16 @@ import { NextPage } from "next";
 import React from "react";
 
 const Home: NextPage = () => {
-  const { categories } = useBolaoContext();
+  const { categories, isLoading } = useBolaoContext();
 
   React.useEffect(() => {
     console.log({ categories });
   }, [categories]);
 
-  // const handleOptionSelected = (option: string) => {
-  //   setSelectedOption(option);
-  // };
-
   return (
     <div>
       <Header />
-      <Main categories={categories} />
+      {!isLoading && <Main categories={categories} />}
     </div>
   );
 };

@@ -13,7 +13,7 @@ export const OptionsStyled = styled.div`
 
   label {
     font-size: 1.4rem;
-    margin: 5px 0;
+    margin: 2px 0;
     font-weight: 400;
     display: flex;
 
@@ -21,4 +21,17 @@ export const OptionsStyled = styled.div`
       margin-right: 5px;
     }
   }
+`;
+
+type LabelProps = {
+  isWinner: boolean;
+  isLoser?: boolean;
+};
+
+export const LabelStyled = styled.label<LabelProps>`
+  background-color: ${({ isWinner, isLoser }) =>
+    isWinner ? "#c7e8ca" : isLoser ? "#FF8E9E" : "inherit"};
+  width: 90%;
+  padding: 0.3rem 1rem;
+  border-radius: 8px;
 `;
