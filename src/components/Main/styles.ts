@@ -16,6 +16,25 @@ export const MainStyled = styled.main`
   }
 `;
 
+export const ScoreStyled = styled.div`
+  margin: 5rem;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+
+  p {
+    font-size: 1.7rem;
+    font-weight: 500;
+    background-color: #ff8e9e;
+    padding: 0 2rem;
+    border-radius: 10px;
+  }
+
+  p:first-child {
+    background-color: #c7e8ca;
+  }
+`;
+
 export const ButtonStyled = styled.button`
   margin: 2rem auto;
   display: block;

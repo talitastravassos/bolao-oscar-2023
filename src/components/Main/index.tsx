@@ -3,7 +3,7 @@ import { Category } from "components/Category";
 import { useBolaoContext } from "context/BolaoContext";
 import { Form, Formik } from "formik";
 import { ICategory } from "types";
-import { ButtonStyled, MainStyled } from "./styles";
+import { ButtonStyled, MainStyled, ScoreStyled } from "./styles";
 
 type MainProps = {
   categories: ICategory[];
@@ -22,10 +22,10 @@ export const Main = ({ categories }: MainProps) => {
 
   return (
     <MainStyled>
-      <div>
-        <p>acertos: {hits}</p>
-        <p>erros: {mistakes}</p>
-      </div>
+      <ScoreStyled>
+        <p>Acertos: {hits}</p>
+        <p>Erros: {mistakes}</p>
+      </ScoreStyled>
       <Formik
         initialValues={currentBolao}
         onSubmit={async (values) => {
@@ -53,7 +53,7 @@ export const Main = ({ categories }: MainProps) => {
             </div>
 
             <ButtonStyled type="submit" disabled={disabledForm}>
-              Enviar
+              Salvar
             </ButtonStyled>
           </Form>
         )}
