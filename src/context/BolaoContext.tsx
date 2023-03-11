@@ -6,8 +6,12 @@ export type BolaoContextType = {
   categories: ICategory[];
   currentBolao: IBolao;
   isLoading: boolean;
+  hits: number;
+  mistakes: number;
   saveBolaoLocalStorage: (key: string, bolao: IBolao) => void;
   getBolaoLocalStorage: (key: string) => IBolao;
+  setHits: React.Dispatch<React.SetStateAction<number>>;
+  setMistakes: React.Dispatch<React.SetStateAction<number>>;
 };
 
 interface IProps {
@@ -22,6 +26,8 @@ export const BolaoProvider = ({ children }: IProps) => {
   const [categories, setCategories] = useState<ICategory[]>([] as ICategory[]);
   const [currentBolao, setCurrentBolao] = useState<IBolao>({} as IBolao);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [hits, setHits] = useState<number>(0);
+  const [mistakes, setMistakes] = useState<number>(0);
 
   const getCategories = async () => {
     const { data } = await api.get("/");
@@ -39,11 +45,41 @@ export const BolaoProvider = ({ children }: IProps) => {
     return JSON.parse(localStorage.getItem(key) as string);
   };
 
+  const verifyPoints = (bolao: IBolao) => {
+    const winners = categories.reduce((acc, category) => {
+      const key = category.title.replace(/\s/g, "");
+      const winner = category.nominees.find(
+        (nominee) => nominee.isWinner
+      )?.name;
+      return { ...acc, [key]: winner };
+    }, {});
+
+    let hits = 0;
+    let mistakes = 0;
+
+    for (const categoryKey in bolao) {
+      // eslint-disable-next-line no-prototype-builtins
+      if (winners.hasOwnProperty(categoryKey)) {
+        //@ts-ignore
+        if (bolao[categoryKey] === winners[categoryKey]) {
+          hits++;
+          //@ts-ignore
+        } else if (winners[categoryKey]) {
+          mistakes++;
+        }
+      }
+    }
+
+    setHits(hits);
+    setMistakes(mistakes);
+  };
+
   React.useEffect(() => {
     const dataLocalBolao = getBolaoLocalStorage("dataBolaoOscar2023");
 
     if (dataLocalBolao) {
       setCurrentBolao(dataLocalBolao);
+      verifyPoints(dataLocalBolao);
     } else {
       setCurrentBolao({
         BestPicture: "",
@@ -70,15 +106,23 @@ export const BolaoProvider = ({ children }: IProps) => {
       categories,
       currentBolao,
       isLoading,
+      hits,
+      mistakes,
       saveBolaoLocalStorage,
       getBolaoLocalStorage,
+      setMistakes,
+      setHits,
     };
   }, [
     categories,
     currentBolao,
     isLoading,
+    hits,
+    mistakes,
     saveBolaoLocalStorage,
     getBolaoLocalStorage,
+    setMistakes,
+    setHits,
   ]);
 
   return (

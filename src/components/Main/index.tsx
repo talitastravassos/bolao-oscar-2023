@@ -10,13 +10,22 @@ type MainProps = {
 };
 
 export const Main = ({ categories }: MainProps) => {
-  const { saveBolaoLocalStorage, getBolaoLocalStorage, currentBolao } =
-    useBolaoContext();
+  const {
+    saveBolaoLocalStorage,
+    getBolaoLocalStorage,
+    currentBolao,
+    hits,
+    mistakes,
+  } = useBolaoContext();
 
   const disabledForm = !!getBolaoLocalStorage("dataBolaoOscar2023");
 
   return (
     <MainStyled>
+      <div>
+        <p>acertos: {hits}</p>
+        <p>erros: {mistakes}</p>
+      </div>
       <Formik
         initialValues={currentBolao}
         onSubmit={async (values) => {
