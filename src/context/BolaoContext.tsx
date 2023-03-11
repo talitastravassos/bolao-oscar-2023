@@ -10,8 +10,6 @@ export type BolaoContextType = {
   mistakes: number;
   saveBolaoLocalStorage: (key: string, bolao: IBolao) => void;
   getBolaoLocalStorage: (key: string) => IBolao;
-  setHits: React.Dispatch<React.SetStateAction<number>>;
-  setMistakes: React.Dispatch<React.SetStateAction<number>>;
 };
 
 interface IProps {
@@ -33,6 +31,7 @@ export const BolaoProvider = ({ children }: IProps) => {
     const { data } = await api.get("/");
 
     setCategories(data.categories);
+    verifyPoints(getBolaoLocalStorage("dataBolaoOscar2023"), data.categories);
     setIsLoading(false);
   };
 
@@ -45,7 +44,7 @@ export const BolaoProvider = ({ children }: IProps) => {
     return JSON.parse(localStorage.getItem(key) as string);
   };
 
-  const verifyPoints = (bolao: IBolao) => {
+  const verifyPoints = (bolao: IBolao, categories: ICategory[]) => {
     const winners = categories.reduce((acc, category) => {
       const key = category.title.replace(/\s/g, "");
       const winner = category.nominees.find(
@@ -75,11 +74,12 @@ export const BolaoProvider = ({ children }: IProps) => {
   };
 
   React.useEffect(() => {
+    getCategories();
+
     const dataLocalBolao = getBolaoLocalStorage("dataBolaoOscar2023");
 
     if (dataLocalBolao) {
       setCurrentBolao(dataLocalBolao);
-      verifyPoints(dataLocalBolao);
     } else {
       setCurrentBolao({
         BestPicture: "",
@@ -98,7 +98,6 @@ export const BolaoProvider = ({ children }: IProps) => {
         BestOriginalSong: "",
       });
     }
-    getCategories();
   }, []);
 
   const values = useMemo(() => {
@@ -110,8 +109,6 @@ export const BolaoProvider = ({ children }: IProps) => {
       mistakes,
       saveBolaoLocalStorage,
       getBolaoLocalStorage,
-      setMistakes,
-      setHits,
     };
   }, [
     categories,
@@ -121,8 +118,6 @@ export const BolaoProvider = ({ children }: IProps) => {
     mistakes,
     saveBolaoLocalStorage,
     getBolaoLocalStorage,
-    setMistakes,
-    setHits,
   ]);
 
   return (
